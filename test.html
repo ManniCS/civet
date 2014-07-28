@@ -73,6 +73,7 @@
 		    {"source": 1, "target": 4}
 		   ]
 	};
+	
 	/* A synchronous loading of json data, causing some errors, 
 	   unless entire force layout is initialized within here. */
 	// d3.json("dataset.json", function (error, json) { 
@@ -119,7 +120,7 @@
 	links = svg.selectAll("line")
         .data(dataset.links, function (d) { return d.source.name + d.target.name })
         .enter() 
-        .append("line")
+        .insert("line", ".node")
         .style("stroke", "#ccc")
         .style("stroke-width", 1)
         .attr("id", function (d) { return d.source.name + d.target.name  } );
@@ -135,6 +136,8 @@
         .on("click", click)
         .call(force.drag);
 
+    /* Calculate the number of links and nodes 
+       on the string. */
     var l = links[0].length, 
     	n = nodes[0].length;
 
@@ -143,6 +146,10 @@
 		console.log("Hi, my name is " + source.name + "!");
 		/* Select a duration. */
 		var duration = d3.event && d3.event.altKey ? 5000 : 500;
+
+		/* Calculate the number of links and nodes on the screen. */
+		l = svg.selectAll("line")[0].length;
+		n = svg.selectAll("circle")[0].length;
 
 		/* Collapse children. */
 		if (source.children && source.children.length) { 
@@ -263,7 +270,7 @@
 									return dataset2.nodes[d.source].name + dataset2.nodes[d.target].name;
 							})
 							.enter()
-							.append("line")
+							.insert("line", ".node")
 							.attr("r", 10)
 					        .style("stroke", "#ccc")
 					        .style("stroke-width", 1)
@@ -310,9 +317,10 @@
 				      	n = svg.selectAll("circle")[0].length;
 
 				      	/* If all of the child links and nodes have been removed
-				         restart the layout */
-				      	if (newL == l && newN == n) {
+				          restart the layout */
+				      	if (newL == l && newN == n && !restarted) {
 				      		console.log("here!");
+				      		restarted = true;
 				      		/* Add all data for added child nodes to set 
 				      		   tracked by the force layout */
 				      		for (var i = 0; i < childNodes.length; i++) 
@@ -342,6 +350,27 @@
 				   	 /* Remove this from the screen. Adding to the force layout (etc) 
 				   	    has already been done above, in animating the nodes. */
 				   	 this.remove();
+
+			   	 	 /* Calculate the new number of nodes and links 
+					    on the screen */
+					 l = svg.selectAll("line")[0].length;
+			      	 n = svg.selectAll("circle")[0].length;
+
+				   	 if (newL == l && newN == n && !restarted) {
+				   	 	restarted = true;
+				      		/* Add all data for added child nodes to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childNodes.length; i++) 
+								force.nodes().push(childNodes[i]);
+
+				      		/* Add all data for add child links to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childLinks.length; i++)
+				      			force.links().push(childLinks[i])
+
+				      		/* Restart the force layout */
+				      		restart();
+				   	 }
 				   });
 			}
 				/* Add the node and link to the arrays used to join this data 
@@ -422,6 +451,7 @@
        and binds those nodes + links to the screen. */
 	function restart() {
 	  console.log("restarting!");
+	  console.log(force.links());
 	  links = links.data(force.links(), function(d) { return d.source.name + d.target.name });
 	  links.enter().insert("line", ".node")
 	  			   .attr("id", function (d) { return d.source.name + d.target.name })
