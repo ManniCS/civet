@@ -1,0 +1,1 @@
+p4 files @=34  | sed s/#.*// | sed s/.depot.//

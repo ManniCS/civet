@@ -1,0 +1,6 @@
+STActionSheetCell.h
+STActivityIndicator.m
+STAddColleagueActionSheet.h
+
+#should we be ignoring changes to .h (/do we care about changes to implementation files(?))
+#objc_dep.py only maps dependencies between classes (not necessarily individual files -- .h/.m)
