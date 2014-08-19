@@ -19,9 +19,9 @@ found_input_file = False
 found_output_file = False
 
 for i in xrange(1, len(sys.argv)):
-	print i
+	# print i
 	f = sys.argv[i]
-	print f
+	# print f
 	if '.dot' in f: 
 		found_input_file = True
 		input_file = f
@@ -49,8 +49,8 @@ Recursive method that allows for parsing of lines in the dot
 file that specify relationships between multiple nodes. 
 """
 def addNodesAndLinks(tokens):
-	if len(tokens) == 1: #if there is only a child left 
-		return     		 #return 
+	if len(tokens) == 1: #if there is only one token left on the line
+		return     		 #return
 
 	"""Bind the appropriate variables to their global equivalents"""
 	global index
@@ -60,7 +60,7 @@ def addNodesAndLinks(tokens):
 	child = tokens[1]
 
 	if (child == "{}"): return #a possible way of encoding no children (obviously, 
-							   #we don't want this to be included as a child node though)
+							   #we don't want this to be included as a child node)
 	"""Add child and parent into collection of discovered nodes, 
 	   if not yet discovered and give a unique index"""
 	if not parent in discovered_nodes:
@@ -70,7 +70,7 @@ def addNodesAndLinks(tokens):
 		discovered_nodes[child] = index
 		index += 1
 
-	"""Check if parent and child exist. If they do, simply add child to parent"""
+	"""Check if parent and child exist. If they do, simply add child to parent and parent to child"""
 	child_exists = False
 	parent_exists = False
 	for i, elem in enumerate(nodes):
@@ -79,6 +79,7 @@ def addNodesAndLinks(tokens):
 			nodes[i]["children"].append(child)
 		elif elem["name"] == child:
 			child_exists = True
+			nodes[i]["parents"].append(parent)
 
 	"""If child or parent do not exist, add the missing ones to the nodes list. 
 	   Be sure to push these in this order. This ensures that the node list stays 
@@ -88,11 +89,11 @@ def addNodesAndLinks(tokens):
 	   the next available unique id (and then inserted into the list of discovered nodes)
 	   the ids of the nodes correspond to their index in the final dataset.)"""
 	if not parent_exists:
-		print "Adding parent + child!"
-		nodes.append({"name": parent, "children": [child]}) 
+		#print "Adding parent + child!"
+		nodes.append({"name": parent, "children": [child], "parents": []}) 
 	if not child_exists:
-		print "Adding child!"
-		nodes.append({"name": child, "children": []})
+		#print "Adding child!"
+		nodes.append({"name": child, "children": [], "parents": [parent]})
 
 	"""Add the parent-child relationship to the links list. The discovered nodes 
        dictionary stores information about the ids of the nodes."""

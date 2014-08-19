@@ -1,100 +1,207 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
+<link type="text/css" rel="stylesheet" href="style.css"/>
+<style type="text/css">
+
+body { 
+	  background: url(texture-noise.png);
+	  overflow: hidden;
+	  margin: 0;
+	  font-size: 14px;
+	  font-family: "Helvetica Neue", Helvetica;
+}
+
+node:hover {
+  color: #666;
+}
+
+.node {
+  cursor: pointer;
+  stroke: #3182bd;
+  stroke-width: 3px;
+}
+
+.node text {
+  font-size: 11px;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
 
 </style>
 <body>
+
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
 	/** Setting up variables. **/
-	var w = 960,
-	    h = 500,
-	    force;
-	console.log("hi there!1");
+	var w = 1500,
+	    h = 750,
+	    colorscheme1 = true,
+	    colorscheme2 = colorscheme1 ? false : true,
+	    node_radius = colorscheme1 ? 15 : colorscheme2 ? 10 : 10, 
+	    refX = colorscheme1 ? 25 : colorscheme2 ? 23 : 23, 
+	    refY = colorscheme1 ? 0 : colorscheme2 ? 0 : 0, 
+	    markerHeight = colorscheme1 ? 11 : colorscheme2 ? 8 : 8, 
+	    markerWidth = colorscheme1 ? 11 : colorscheme2 ? 8 : 8, 
+	    path = colorscheme1 ? "M0,-3L10,0L0,3" : colorscheme2 ? "M0,-4L10,0L0,4" : "M0,-4L10,0L0,4", //path for marker
+	    single_click_timeout = 500;
+
+	// console.log("hi there!1");
 	var svg = d3.select("body").append("svg")
 	    .attr("height", h)
 	    .attr("width", w);
 
 	/* Declare variables that will be used globally later in the script. */
-	var force; //variable for force layout
-	var l, n;  //Calculate the number of links and nodes on the string. 
-	var nodes2, links2; //Set of nodes and links in the original dataset
-	var restarted; //Variable to indicated whether the layout has been restarted yet
+	var force, //variable for force layout
+	    l, n, //Calculate the number of links and nodes on the string. 
+        nodes2, links2, //Set of nodes and links in the original dataset
+	    restarted, //Variable to indicated whether the layout has been restarted yet
+	    last_click = (new Date).getTime(); //Variable to record the last_click on the dom
 
 	/* The set of all d3 elements on the screen 
 	 (and data bound to them.) */
 	var links = svg.selectAll("line"),
-		nodes = svg.selectAll("circle");
+		nodes = svg.selectAll("circle"),
+		text = svg.selectAll("text"); //labels
 
 	/* Define the dataset */
 	var dataset = {}; //the dataset of reduced nodes
 	var dataset2 = {}; //the primary dataset
 
 	/* Load the datasets from their respective files. */
-	// d3.json("graph._json", function(error, json) { 
+	// d3.json("graph_tree._json", function(error, json) { 
 	// 	dataset = json;
-	// 	console.log(json);
+	// 	// console.log(json);
 	// }); 
 
 	// d3.json("graph.json", function(error, json) { 
 	// 	dataset2 = json;
-	// 	console.log(json);
+	// 	// console.log(json);
 	// }); 
 
-	dataset = {
-	"nodes": [
-			{ "name": "Jack", 
-			  "children": ["John"]
-			},{ 
-			  "name": "John",
-			  "children": ["Cynthia", "Portbello", "James"]
-			},{
-			  "name": "Cynthia", 
-			  "children": []
-			},{
-			  "name": "Portbello",
-			  "children": []
-			},{
-			  "name": "James",
-			  "children": []
-			}
-		   ], 
-	"links": [
-			{"source": 0, "target": 1},
-		    {"source": 1, "target": 2}, 
-		    {"source": 1, "target": 3}, 
-		    {"source": 1, "target": 4}
-		   ]
-	};
+	// dataset = {
+	// "nodes": [
+	// 		{ "name": "Jack", 
+	// 		  "children": ["John"]
+	// 		},{ 
+	// 		  "name": "John",
+	// 		  "children": ["Cynthia", "Portbello", "James"]
+	// 		},{
+	// 		  "name": "Cynthia", 
+	// 		  "children": []
+	// 		},{
+	// 		  "name": "Portbello",
+	// 		  "children": []
+	// 		},{
+	// 		  "name": "James",
+	// 		  "children": []
+	// 		}
+	// 	   ], 
+	// "links": [
+	// 		{"source": 0, "target": 1},
+	// 	    {"source": 1, "target": 2}, 
+	// 	    {"source": 1, "target": 3}, 
+	// 	    {"source": 1, "target": 4}
+	// 	   ]
+	// };
 
-	dataset2 = { 
-	"nodes": [
-			{ "name": "Jack", 
-			  "children": ["John"]
-			},{ 
-			  "name": "John",
-			  "children": ["Cynthia", "Portbello", "James"]
-			},{
-			  "name": "Cynthia", 
-			  "children": []
-			},{
-			  "name": "Portbello",
-			  "children": []
-			},{
-			  "name": "James",
-			  "children": []
-			}
-		   ], 
-	"links": [
-			{"source": 0, "target": 1},
-		    {"source": 1, "target": 2}, 
-		    {"source": 1, "target": 3}, 
-		    {"source": 1, "target": 4}
-		   ]
-	};
+	// dataset2 = { 
+	// "nodes": [
+	// 		{ "name": "Jack", 
+	// 		  "children": ["John"]
+	// 		},{ 
+	// 		  "name": "John",
+	// 		  "children": ["Cynthia", "Portbello", "James"]
+	// 		},{
+	// 		  "name": "Cynthia", 
+	// 		  "children": []
+	// 		},{
+	// 		  "name": "Portbello",
+	// 		  "children": []
+	// 		},{
+	// 		  "name": "James",
+	// 		  "children": []
+	// 		}
+	// 	   ], 
+	// "links": [
+	// 		{"source": 0, "target": 1},
+	// 	    {"source": 1, "target": 2}, 
+	// 	    {"source": 1, "target": 3}, 
+	// 	    {"source": 1, "target": 4}
+	// 	   ]
+	// };
 
-	/* A synchronous loading of json data, causing some errors, 
+	dataset = {"nodes": [
+				{"name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STConstants", "STLoginViewController_iPhone"]}, 
+				{"name": "STViewControllerFactoryCollection", "children": ["STGroupViewControllerFactory", "STMessageViewControllerFactory", "STInitializationViewControllerFactory"]}, 
+				{"name": "STUser", "children": ["PDUser", "STUserAuthorization", "PDUserProfile", "ECDataHelper"]}, 
+				{"name": "STConstants", "children": []}, 
+				{"name": "STLoginViewController_iPhone", "children": ["STNavigationController", "STLoginViewModel", "STViewController"]},
+				{"name": "STGroupViewControllerFactory", "children": []},
+				{"name": "STMessageViewControllerFactory", "children": []},
+				{"name": "STInitializationViewControllerFactory", "children": []},
+				{"name": "PDUser", "children": []},
+				{"name": "STUserAuthorization", "children": []},
+				{"name": "PDUserProfile", "children": []},
+				{"name": "ECDataHelper", "children": []},
+				{"name": "STNavigationController", "children": []},
+				{"name": "STLoginViewModel", "children": []},
+				{"name": "STViewController", "children": []}
+				], 
+			"links": [
+				{"source": 0, "target": 1}, 
+				{"source": 0, "target": 2}, 
+				{"source": 0, "target": 3}, 
+				{"source": 0, "target": 4}, 
+				{"source": 1, "target": 5}, 
+				{"source": 1, "target": 6}, 
+				{"source": 1, "target": 7},
+				{"source": 2, "target": 8},
+				{"source": 2, "target": 9},
+				{"source": 2, "target": 10},
+				{"source": 2, "target": 11},
+				{"source": 4, "target": 12},
+				{"source": 4, "target": 13},
+				{"source": 4, "target": 14}]}
+
+	dataset2 = {"nodes": [
+				{"name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STConstants", "STLoginViewController_iPhone"]}, 
+				{"name": "STViewControllerFactoryCollection", "children": ["STGroupViewControllerFactory", "STMessageViewControllerFactory", "STInitializationViewControllerFactory"]}, 
+				{"name": "STUser", "children": ["PDUser", "STUserAuthorization", "PDUserProfile", "ECDataHelper"]}, 
+				{"name": "STConstants", "children": []}, 
+				{"name": "STLoginViewController_iPhone", "children": ["STNavigationController", "STLoginViewModel", "STViewController"]},
+				{"name": "STGroupViewControllerFactory", "children": []},
+				{"name": "STMessageViewControllerFactory", "children": []},
+				{"name": "STInitializationViewControllerFactory", "children": []},
+				{"name": "PDUser", "children": []},
+				{"name": "STUserAuthorization", "children": []},
+				{"name": "PDUserProfile", "children": []},
+				{"name": "ECDataHelper", "children": []},
+				{"name": "STNavigationController", "children": []},
+				{"name": "STLoginViewModel", "children": []},
+				{"name": "STViewController", "children": []}
+				], 
+			    "links": [
+				{"source": 0, "target": 1}, 
+				{"source": 0, "target": 2}, 
+				{"source": 0, "target": 3}, 
+				{"source": 0, "target": 4}, 
+				{"source": 1, "target": 5}, 
+				{"source": 1, "target": 6}, 
+				{"source": 1, "target": 7},
+				{"source": 2, "target": 8},
+				{"source": 2, "target": 9},
+				{"source": 2, "target": 10},
+				{"source": 2, "target": 11},
+				{"source": 4, "target": 12},
+				{"source": 4, "target": 13},
+				{"source": 4, "target": 14}]}
+
+	/* Asynchronous loading of json data, causing some errors, 
 	   unless entire force layout is initialized within here. */
 	// d3.json("dataset.json", function (error, json) { 
 	// 	/* Here */
@@ -118,7 +225,7 @@
 	//         .data(dataset.nodes)
 	//         .enter()
 	//         .append("circle")
-	//         .attr("r", 10)
+	//         .attr("r", node_radius)
 	//         .call(force.drag);
 
 	// });
@@ -157,7 +264,7 @@
 				var sourceName = dataset2.nodes[dataset2.links[i].source].name;
 				var targetName = dataset2.nodes[dataset2.links[i].target].name;
 				if (sourceName == source.name && targetName == children[j]) { 
-						console.log(dataset2.links[i]);
+						// console.log(dataset2.links[i]);
 						array.push(dataset2.links[i]);
 				}
 			}
@@ -193,25 +300,39 @@
 	/* Restarts the force layout based on the nodes and links it tracks 
        and binds those nodes + links to the screen. */
 	var restart = function restart() {
-	  console.log("restarting!");
-	  console.log(force.links());
+	  // console.log("restarting!");
+	  // console.log(force.links());
 	  links = links.data(force.links(), function(d) { return d.source.name + d.target.name });
 	  links.enter().insert("line", ".node")
 	  			   .attr("id", function (d) { return d.source.name + d.target.name })
 	  			   .style("stroke", "#ccc")
-				   .style("stroke-width", 1);
+				   .style("stroke-width", 1)
+				   .attr("marker-end", "url(#Triangle)");
 	  links.exit().remove();
 
 	  nodes = nodes.data(force.nodes(), function(d) { return d.name });
 	  nodes.enter().append("circle")
-	  			   .attr("r", 10)
+	  			   .style("fill", color)
+	  			   .attr("r", node_radius)
 	  			   .attr("id", function(d) { return d.name })
 	  			   .attr("class", "node")
 	  			   .on("click", click)
 	  			   .call(force.drag);
 	  nodes.exit().remove();
 
+	  text = text.data(force.nodes(), function (d) { return d.name + "t"});
+	  text.enter().append("text")
+	  			  .attr("x", -5)
+				  .attr("y", "2em")
+				  .attr("id", function (d) { return d.name + "t" })
+				  .text(function(d) { return d.name; });
+
 	  force.start();
+	  
+	  /* Unfix the nodes */
+	  for (var i = 0; i < force.nodes().length; i++) { 
+	  	  force.nodes()[i].fixed = false;
+	  }
 	}
 
 	/* Returns the index of the node with the given 
@@ -245,16 +366,18 @@
 
 		nodes.attr("cx", function(d) { return d.x; })
 		     .attr("cy", function(d) { return d.y; });
+
+		text.attr("transform", transform);
+	}
+	/* */
+	var transform = function (d) {
+		return "translate(" + d.x + "," + d.y +")";
 	}
 
 	/* Recursively call collapse children on all of source's expanded children */
-	var collapseChildren = function collapseChildren(source_master, source, duration) { 
+	var collapseChildren = function collapseChildren(source_master, source, duration, depth) { 
 		/* Base case */
-		if (!source.children) return;
-		console.log("Hi! I am" + source.name);
-		console.log("I have children!");
-		console.log("they are: ");
-		console.log(source.children);
+		if (!source.children || depth >= 8) return;
 
 		/* Calculate the new number of links that will be on the screen */
 		var newL = l - source.children.length;
@@ -267,34 +390,37 @@
 		/* Select the appropriate DOM elements one by 
 		   one and collapse them */
 		for (var i = 0; i < source.children.length; i++) { 
-			/* Collapse the child nodes */
-			svg.select("#" + source.children[i])
-			   .transition()
-			   .duration(duration)	
-			   .attr("cx", source_master.x)
-			   .attr("cy", source_master.y)
-			   .attr("r", 1e-6)
-			   // .style("opacity", 0.8)
-			   .each("end", function () { 
-			   	  	/* Remove child node from page */
-					this.remove();
+			if (!moreParentsOnScreen(source.children[i], source.name)) {//Consider replacing with a more efficient implementation of array.contains(?) (also keep an array of names of displayed/visible nodes) 
+				/* Collapse the child nodes */
+				svg.select("#" + source.children[i])
+				   .transition()
+				   .duration(duration)	
+				   .attr("cx", source_master.x)
+				   .attr("cy", source_master.y)
+				   .attr("r", 1e-6)
+				   // .style("opacity", 0.8)
+				   .each("end", function () { 
+				   	  	/* Remove child node from page */
+						this.remove();
 
-				   	/* Calculate the new number of nodes and links 
-				      on the screen */
-					l = svg.selectAll("line")[0].length;
-			       	n = svg.selectAll("circle")[0].length;
+					   	/* Calculate the new number of nodes and links 
+					      on the screen */
+						l = svg.selectAll("line")[0].length;
+				       	n = svg.selectAll("circle")[0].length;
 
-			      	/* If all of the child links and nodes have been removed
-			      	   restart the layout */
-			      	if (newL <= l && newN <= n && !restarted) {
-			      		restarted = true;
-			      		restart();
-			      	}
-			   });
+				      	/* If all of the child links and nodes have been removed
+				      	   restart the layout */
+				      	if (newL == l && newN == n && !restarted) {
 
-			/* Remove the child node from the set of nodes 
-			   tracked by the force layout. */
-			force.nodes().splice(indexOfNode(source.children[i]), 1);
+				      		restarted = true;
+				      		restart();
+				      	}
+				   });
+
+				/* Remove the child node from the set of nodes 
+				   tracked by the force layout. */
+				force.nodes().splice(indexOfNode(source.children[i]), 1);
+			}
 
 			/* Collapse the child link */
 			svg.select("#" + source.name + source.children[i])
@@ -304,9 +430,10 @@
 				   .attr("y1", source_master.y)
 			       .attr("x2", source_master.x)
 			       .attr("y2", source_master.y)
+			       .style("opacity", 1e-6)
 			       // .style("opacity", 0)
 			   	   .each("end", function () { 
-			   	  	 /* Remove child node from page */
+			   	  	 /* Remove child link from page */
 					 this.remove();
 
 				   	 /* Calculate the new number of nodes and links 
@@ -316,11 +443,18 @@
 
 			      	 /* If all of the child links and nodes have been removed
 			      	    restart the layout */
-			      	 if (newL <= l && newN <= n && !restarted) {
+			      	 if (newL == l && newN == n && !restarted) {
 			      	 	restarted = true;	
 			      	 	restart();
 			      	 }
 			   	   });
+
+			/* Collapse the text label */
+			svg.select("#" + source.children[i] + "t")
+			   //.transition()
+			   //.duration(duration)
+			   //.attr("fill-opacity", 0)
+			   .remove();
 
 			/* Remove the link from the set of links 
 			   tracked by the force layout. */
@@ -330,17 +464,21 @@
 
 		/* Recursively call collapseChildren on all the expanded children of a node.*/
 		for (var i = 0; i < source.children.length; i++) { 
-			console.log("About to call recursively.");
-			console.log("These are my children here: ");
-			console.log(source.children);
-			console.log("Here is my forced child");
-			console.log(childWithName(source.children[i]));
-			collapseChildren(source_master, childWithName(source.children[i]), duration);
+			// console.log("About to call recursively.");
+			// console.log("These are my children here: ");
+			// console.log(source.children);
+			// console.log("Here is my forced child");
+			// console.log(childWithName(source.children[i]));
+			collapseChildren(source_master, childWithName(source.children[i]), duration, depth + 1);
 		}
 
 		/* Set the children field to null, to indicated non-expanded children.*/
 		source._children = source.children;
-		source.children = null; 
+		source.children = null;
+
+		/* Recolor source node.ss*/
+		if (depth == 0) 
+			svg.select("#" + source_master.name).style("fill", color);
 	}
 
 	/* Expand children; at this point: one level at a time. */
@@ -356,10 +494,10 @@
 		var childNodes = [];
 		var childLinks = [];
 
-		console.log("mychildren have collapsed!");
-		console.log(source);
+		// console.log("mychildren have collapsed!");
+		// console.log(source);
 		/* Calculate positioning information for expanding nodes */
-		var r = 50;
+		var r = 90;
 		var theta = 2 * Math.PI / source._children.length;
 
 		restarted = false;
@@ -369,6 +507,7 @@
 					    .data(arrayOfChildren(source._children), function (d) {return d.name})
 						.enter()
 						.append("circle")
+						.style("fill", color)
 						.attr("r", 1e-6)
 					    .attr("id", function(d) { return d.name })
 					    .attr("class", "node")
@@ -390,19 +529,21 @@
 						})
 						.enter()
 						.insert("line", ".node")
-						.attr("r", 10)
+						.attr("r", node_radius)
 				        .style("stroke", "#ccc")
 				        .style("stroke-width", 1)
+				        .style("opacity", 1e-6)
 						.attr("id", function (d) { return dataset2.nodes[d.source].name + dataset2.nodes[d.target].name })
 						.attr("x1", source.x)
 						.attr("y1", source.y)
 						.attr("x2", source.x)
-						.attr("y2", source.y);
+						.attr("y2", source.y)
+						.attr("marker-end", "url(#Triangle)");
 
 		/* Expand nodes & links one by one */
 		for (var i = 0; i < source._children.length; i++) {
-			console.log("children here");
-			console.log(source._children); 
+			// console.log("children here");
+			// console.log(source._children); 
 
 			/* Child to be added */
 		    var child = childWithName(source._children[i]);
@@ -411,7 +552,7 @@
 			svg.select("#" + source._children[i])
 			    .transition()
 				.duration(duration)
-				.attr("r", 10)
+				.attr("r", node_radius)
 				.attr("cx", function () {
 					child.x = source.x + r * Math.sin(theta * i);
 					return child.px = source.x + r * Math.sin(theta * i);
@@ -438,7 +579,7 @@
 			      	/* If all of the child links and nodes have been removed
 			          restart the layout */
 			      	if (newL == l && newN == n && !restarted) {
-			      		console.log("here!");
+			      		// console.log("here!");
 			      		restarted = true;
 			      		/* Add all data for added child nodes to set 
 			      		   tracked by the force layout */
@@ -459,6 +600,7 @@
 			svg.select("#" + source.name + source._children[i])
 			   .transition()
 			   .duration(duration)
+			   .style("opacity", 0.6)
 			   .attr("x2", function () { return source.x + r * Math.sin(theta * i) })
 			   .attr("y2", function () { 
 			   	/* Link has already been added (to the set tracked by the force 
@@ -498,11 +640,23 @@
 			// childLinks.push({source: source, target: childWithName(source._children[i])});
 
 		source.children = source._children; 
+
+		svg.select("#" + source.name).style("fill", color);
 	}
 
 	/* Define what happens to a node on a click event */
 	var click = function click(source) { 
+		/* Prevent double clicks */
+		var current_time = (new Date).getTime(); //number of milliseconds since Jan 1, 1970
+		if (current_time - last_click < single_click_timeout){
+			console.log("click prevented!");
+			return;
+		}
+		console.log("**********************************************");
 		console.log("Hi, my name is " + source.name + "!");
+		/* Ignore drag */
+		if (d3.event.defaultPrevented) return; 
+
 		/* Select a duration. */
 		var duration = d3.event && d3.event.altKey ? 5000 : 500;
 
@@ -510,21 +664,32 @@
 		l = svg.selectAll("line")[0].length;
 		n = svg.selectAll("circle")[0].length;
 
+		/* Fix all the nodes in the layout, so as to allow for smooth 
+		   collapse and expansion. Note: Nodes will be unfixed in the 
+		   restart function. */
+ 		for (var i = 0; i < force.nodes().length; i++) { 
+	 		force.nodes()[i].fixed = true;
+		}
+
 		/* Collapse children. */
 		if (source.children && source.children.length > 0) { 
-			collapseChildren(source, source, duration);
+			console.log("I have these children");
+			// console.log(source.children);
+			collapseChildren(source, source, duration, 0);
 		/* Expand children */
-		} else if (source._children) { //If children collapsed
+		} else if (source._children.length > 0) { //If children collapsed
+			console.log("My children are collapsed, but here they are!");
 			expandChildren(source, duration);
 		} else { 
-			console.log(console.log("no children!"));
+			restart();
+			console.log("no children!");
 		}
-		console.log(source.name);
-		console.log(source.children);
+		console.log("*********************************************");
+		last_click = current_time;
 	};
 
 	function main() { 
-		console.log("just before!");
+		// console.log("just before!");
 	    nodes2 = dataset2.nodes; 
 		links2 = dataset2.links;
 
@@ -533,10 +698,25 @@
 							 .nodes(dataset.nodes)
 							 .links(dataset.links)
 							 .size([w, h])
-		                     .linkDistance([50])
-		                     .charge([-100])   
+		                     .linkDistance([90])
+		                     .charge([-2000])   
 							 .on("tick", tick)
 							 .start();
+
+		/* Define the triangle marker. */
+		svg.append("defs").selectAll("marker")
+		   .data(["Triangle"])
+		   .enter()
+		   .append("marker")
+		   .attr("id", function (d) {return d})
+		   .attr("viewBox", "0 -5 10 10")
+		   .attr("refX", refX)
+		   .attr("refY", refY)
+		   .attr("markerWidth", markerHeight)
+		   .attr("markerHeight", markerWidth)
+		   .attr("orient", "auto")
+		   .append("path")
+		   .attr("d", path);
 
 		/* Put all the links on the canvas */
 		links = svg.selectAll("line")
@@ -545,23 +725,62 @@
 	        .insert("line", ".node")
 	        .style("stroke", "#ccc")
 	        .style("stroke-width", 1)
-	        .attr("id", function (d) { return d.source.name + d.target.name  } );
+	        .attr("id", function (d) { return d.source.name + d.target.name  } )
+	        .attr("marker-end", "url(#Triangle)");
 
 	    /* Put all the nodes on the canvas */
 		nodes = svg.selectAll("circle")
 	        .data(dataset.nodes, function (d) {return d.name})
 	        .enter()
 	        .append("circle")
-	        .attr("r", 10)
+	        .style("fill", color)
+	        .attr("r", node_radius)
 	        .attr("id", function(d) {return d.name})
 	        .attr("class", "node")
 	        .on("click", click)
 	        .call(force.drag);
 
+	    text = svg.append("g").selectAll("text")
+				    .data(force.nodes(), function (d) { return d.name + "t"})
+				   .enter().append("text")
+				    .attr("x", -5)
+				    .attr("y", "2em")
+				    .attr("id", function (d) { return d.name + "t" })
+				    .text(function(d) { return d.name; });
+
 	    /* Calculate the number of links and nodes 
 	       on the string. */
 	    l = links[0].length;
 	   	n = nodes[0].length;
+	}
+
+	/* Return the coloring for a node. */
+	var color = function color(d) { 
+		if (d.children && d.children.length > 0) 
+			return colorscheme1 ? "#c6dbef" : colorscheme2 ? "#fff" : "#000" 
+		else if (d._children && d._children.length > 0)
+			return colorscheme1 ? "#3182bd" : colorscheme2 ? "lightsteelblue" : "#000" 
+		else 
+			return colorscheme1 ? "#fd8d3c" : colorscheme2 ? "#fff" : "#000" 
+	} 
+
+	// var double_click = function (source) { 
+	// 	console.log("hey!");
+	// 	console.log("you clicked me!");
+	// }
+
+	/* Checks whether the node nominated for collapse has more parents on screen than the 
+	   parent which is requesting its collapse. Takes the names of the parent and the child 
+	   it is nominating for collapse.
+	 */
+	var moreParentsOnScreen = function moreParentsOnScreen (childName, parentName) { 
+		var child = forcedChildWithName(childName);
+		for (var i = 0; i < child.parents.length; i++) { 
+			var parent = forcedChildWithName(child.parents[i]);
+			if (parent && parent.name != parentName)
+				return true;
+		}
+		return false;
 	}
 
 	/* Sleep function */
