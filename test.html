@@ -361,8 +361,6 @@ path.link {
 	/* Restarts the force layout based on the nodes and links it tracks 
        and binds those nodes + links to the screen. */
 	var restart = function restart() {
-	  // console.log("restarting!");
-	  // console.log(force.links());
 	  links = links.data(force.links(), function(d) { return d.source.name + d.target.name });
 	  links.enter().insert("line", ".node")
 	  			   .attr("id", function (d) { return d.source.name + d.target.name })
@@ -444,19 +442,8 @@ path.link {
 
 		/* Recursively call collapseChildren on all the expanded children of a node.*/
 		for (var i = 0; i < source.children.length; i++) { 
-			// console.log("About to call recursively.");
-			// console.log("These are my children here: ");
-			// console.log(source.children);
-			// console.log("Here is my forced child");
-			// console.log(childWithName(source.children[i]));
-			console.log("Here is the child I would like to collapse");
 			var child = forcedChildWithName(source.children[i]);
-			console.log(child);
-			console.log("Here are its children: ");
-			console.log(child.children);
 			if (child.children) {//children not already collapsed
-				console.log("Here is the child I'm about to collapse");
-				console.log(child);
 				collapseChildren(source_master, child, duration, depth + 1);
 			}
 		}
@@ -480,7 +467,6 @@ path.link {
 				   .attr("cx", source_master.x)
 				   .attr("cy", source_master.y)
 				   .attr("r", 1e-6)
-				   // .style("opacity", 0.8)
 				   .each("end", function () { 
 				   	  	/* Remove child node from page */
 						this.remove();
@@ -501,15 +487,10 @@ path.link {
 
 				/* Collapse the text label */
 				svg.select("#" + source.children[i] + "t")
-				   //.transition()
-				   //.duration(duration)
-				   //.attr("fill-opacity", 0)
 				   .remove();
 
 				/* Remove the child node from the set of nodes 
 				   tracked by the force layout. */
-				// console.log("Removing: ");
-				// console.log(source.children[i]);
 				force.nodes().splice(indexOfNode(source.children[i]), 1);
 			}
 
@@ -522,7 +503,6 @@ path.link {
 			       .attr("x2", source_master.x)
 			       .attr("y2", source_master.y)
 			       .style("opacity", 1e-6)
-			       // .style("opacity", 0)
 			   	   .each("end", function () { 
 			   	  	 /* Remove child link from page */
 					 this.remove();
@@ -549,6 +529,10 @@ path.link {
 		/* Set the children field to null, to indicated non-expanded children.*/
 		source._children = source.children;
 		source.children = false;
+
+		/* Recolor source to indicate collapsed children. */
+		svg.selectAll("#" + source.name)
+		   .style("fill", color);
 
 		/* Recolor source node.ss*/
 		if (depth == 0) 
