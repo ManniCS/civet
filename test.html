@@ -135,71 +135,125 @@ path.link {
 	// 	   ]
 	// };
 
+	// dataset ={"nodes": [
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STUser", "children": ["PDUserProfile", "STUserAuthorization", "ECDataHelper", "PDUser"]}, 
+	// 			{"parents": ["STUser"], "name": "PDUserProfile", "children": []}, 
+	// 			{"parents": ["STUser"], "name": "STUserAuthorization", "children": []}, 
+	// 			{"parents": ["STUser"], "name": "ECDataHelper", "children": []}, 
+	// 			{"parents": ["STUser"], "name": "PDUser", "children": []}, 
+	// 			{"parents": [], "name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STLoginViewController_iPhone", "STConstants"]}, 
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STViewControllerFactoryCollection", "children": ["STInitializationViewControllerFactory", "STGroupViewControllerFactory", "STMessageViewControllerFactory"]}, 
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STLoginViewController_iPhone", "children": ["STNavigationController", "STLoginViewModel", "STViewController"]}, 
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STConstants", "children": []}, 
+	// 			{"parents": ["STViewControllerFactoryCollection"], "name": "STInitializationViewControllerFactory", "children": []}, 
+	// 			{"parents": ["STViewControllerFactoryCollection"], "name": "STGroupViewControllerFactory", "children": []}, 
+	// 			{"parents": ["STViewControllerFactoryCollection"], "name": "STMessageViewControllerFactory", "children": []}, 
+	// 			{"parents": ["STLoginViewController_iPhone"], "name": "STNavigationController", "children": []}, 
+	// 			{"parents": ["STLoginViewController_iPhone"], "name": "STLoginViewModel", "children": []}, 
+	// 			{"parents": ["STLoginViewController_iPhone"], "name": "STViewController", "children": []}], 
+	// 			"links": [
+	// 			{"source": 0, "target": 1}, 
+	// 			{"source": 0, "target": 2}, 
+	// 			{"source": 0, "target": 3}, 
+	// 			{"source": 0, "target": 4}, 
+	// 			{"source": 5, "target": 6}, 
+	// 			{"source": 5, "target": 0}, 
+	// 			{"source": 5, "target": 7}, 
+	// 			{"source": 5, "target": 8}, 
+	// 			{"source": 6, "target": 9}, 
+	// 			{"source": 6, "target": 10}, 
+	// 			{"source": 6, "target": 11}, 
+	// 			{"source": 7, "target": 12}, 
+	// 			{"source": 7, "target": 13}, 
+	// 			{"source": 7, "target": 14}]};
+
+	// dataset2 = {"nodes": [
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STUser", "children": ["PDUserProfile", "STUserAuthorization", "ECDataHelper", "PDUser"]}, 
+	// 			{"parents": ["STUser"], "name": "PDUserProfile", "children": []}, 
+	// 			{"parents": ["STUser"], "name": "STUserAuthorization", "children": []}, 
+	// 			{"parents": ["STUser"], "name": "ECDataHelper", "children": []}, 
+	// 			{"parents": ["STUser"], "name": "PDUser", "children": []}, 
+	// 			{"parents": [], "name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STLoginViewController_iPhone", "STConstants"]}, 
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STViewControllerFactoryCollection", "children": ["STInitializationViewControllerFactory", "STGroupViewControllerFactory", "STMessageViewControllerFactory"]}, 
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STLoginViewController_iPhone", "children": ["STNavigationController", "STLoginViewModel", "STViewController"]}, 
+	// 			{"parents": ["STDisplayManager_iPhone"], "name": "STConstants", "children": []}, 
+	// 			{"parents": ["STViewControllerFactoryCollection"], "name": "STInitializationViewControllerFactory", "children": []}, 
+	// 			{"parents": ["STViewControllerFactoryCollection"], "name": "STGroupViewControllerFactory", "children": []}, 
+	// 			{"parents": ["STViewControllerFactoryCollection"], "name": "STMessageViewControllerFactory", "children": []}, 
+	// 			{"parents": ["STLoginViewController_iPhone"], "name": "STNavigationController", "children": []}, 
+	// 			{"parents": ["STLoginViewController_iPhone"], "name": "STLoginViewModel", "children": []}, 
+	// 			{"parents": ["STLoginViewController_iPhone"], "name": "STViewController", "children": []}], 
+	// 			"links": [
+	// 			{"source": 0, "target": 1}, 
+	// 			{"source": 0, "target": 2}, 
+	// 			{"source": 0, "target": 3}, 
+	// 			{"source": 0, "target": 4}, 
+	// 			{"source": 5, "target": 6}, 
+	// 			{"source": 5, "target": 0}, 
+	// 			{"source": 5, "target": 7}, 
+	// 			{"source": 5, "target": 8}, 
+	// 			{"source": 6, "target": 9}, 
+	// 			{"source": 6, "target": 10}, 
+	// 			{"source": 6, "target": 11}, 
+	// 			{"source": 7, "target": 12}, 
+	// 			{"source": 7, "target": 13}, 
+	// 			{"source": 7, "target": 14}]};
+
 	dataset = {"nodes": [
-				{"name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STConstants", "STLoginViewController_iPhone"]}, 
-				{"name": "STViewControllerFactoryCollection", "children": ["STGroupViewControllerFactory", "STMessageViewControllerFactory", "STInitializationViewControllerFactory"]}, 
-				{"name": "STUser", "children": ["PDUser", "STUserAuthorization", "PDUserProfile", "ECDataHelper"]}, 
-				{"name": "STConstants", "children": []}, 
-				{"name": "STLoginViewController_iPhone", "children": ["STNavigationController", "STLoginViewModel", "STViewController"]},
-				{"name": "STGroupViewControllerFactory", "children": []},
-				{"name": "STMessageViewControllerFactory", "children": []},
-				{"name": "STInitializationViewControllerFactory", "children": []},
-				{"name": "PDUser", "children": []},
-				{"name": "STUserAuthorization", "children": []},
-				{"name": "PDUserProfile", "children": []},
-				{"name": "ECDataHelper", "children": []},
-				{"name": "STNavigationController", "children": []},
-				{"name": "STLoginViewModel", "children": []},
-				{"name": "STViewController", "children": []}
-				], 
-			"links": [
-				{"source": 0, "target": 1}, 
-				{"source": 0, "target": 2}, 
-				{"source": 0, "target": 3}, 
-				{"source": 0, "target": 4}, 
-				{"source": 1, "target": 5}, 
-				{"source": 1, "target": 6}, 
+				{"parents": ["STViewController"], "name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STConstants", "STLoginViewController_iPhone"]},
+				{"parents": ["STDisplayManager_iPhone", "STViewController"], "name": "STViewControllerFactoryCollection", "children": ["STGroupViewControllerFactory", "STMessageViewControllerFactory", "STInitializationViewControllerFactory"]},
+				{"parents": ["STDisplayManager_iPhone", "STSaveProfileOperation", "STRemoveGroupMembersOperation", "STChangeColleagueBlockStatusOperation"], "name": "STUser", "children": []},
+				{"parents": ["STDisplayManager_iPhone"], "name": "STConstants", "children": []},
+				{"parents": ["STDisplayManager_iPhone"], "name": "STLoginViewController_iPhone", "children": []},
+				{"parents": ["STViewControllerFactoryCollection"], "name": "STGroupViewControllerFactory", "children": []},
+				{"parents": ["STViewControllerFactoryCollection"], "name": "STMessageViewControllerFactory", "children": []},
+				{"parents": ["STViewControllerFactoryCollection"], "name": "STInitializationViewControllerFactory", "children": []
+				},
+				{"parents": [], "name": "STViewController", "children": ["STDisplayManager_iPhone", "STViewControllerFactoryCollection"]},
+				{"parents": [], "name": "STSaveProfileOperation", "children": ["STUser"]},
+				{"parents": [], "name": "STRemoveGroupMembersOperation", "children": ["STUser"]},
+				{"parents": [], "name": "STChangeColleagueBlockStatusOperation", "children": ["STUser"]}],
+				"links": [
+				{"source": 0, "target": 1},
+				{"source": 0, "target": 2},
+				{"source": 0, "target": 3},
+				{"source": 0, "target": 4},
+				{"source": 1, "target": 5},
+				{"source": 1, "target": 6},
 				{"source": 1, "target": 7},
-				{"source": 2, "target": 8},
-				{"source": 2, "target": 9},
-				{"source": 2, "target": 10},
-				{"source": 2, "target": 11},
-				{"source": 4, "target": 12},
-				{"source": 4, "target": 13},
-				{"source": 4, "target": 14}]}
+				{"source": 8, "target": 0},
+				{"source": 8, "target": 1},
+				{"source": 9, "target": 2},
+				{"source": 10, "target": 2},
+				{"source": 11, "target": 2}]};
 
 	dataset2 = {"nodes": [
-				{"name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STConstants", "STLoginViewController_iPhone"]}, 
-				{"name": "STViewControllerFactoryCollection", "children": ["STGroupViewControllerFactory", "STMessageViewControllerFactory", "STInitializationViewControllerFactory"]}, 
-				{"name": "STUser", "children": ["PDUser", "STUserAuthorization", "PDUserProfile", "ECDataHelper"]}, 
-				{"name": "STConstants", "children": []}, 
-				{"name": "STLoginViewController_iPhone", "children": ["STNavigationController", "STLoginViewModel", "STViewController"]},
-				{"name": "STGroupViewControllerFactory", "children": []},
-				{"name": "STMessageViewControllerFactory", "children": []},
-				{"name": "STInitializationViewControllerFactory", "children": []},
-				{"name": "PDUser", "children": []},
-				{"name": "STUserAuthorization", "children": []},
-				{"name": "PDUserProfile", "children": []},
-				{"name": "ECDataHelper", "children": []},
-				{"name": "STNavigationController", "children": []},
-				{"name": "STLoginViewModel", "children": []},
-				{"name": "STViewController", "children": []}
-				], 
-			    "links": [
-				{"source": 0, "target": 1}, 
-				{"source": 0, "target": 2}, 
-				{"source": 0, "target": 3}, 
-				{"source": 0, "target": 4}, 
-				{"source": 1, "target": 5}, 
-				{"source": 1, "target": 6}, 
+				{"parents": ["STViewController"], "name": "STDisplayManager_iPhone", "children": ["STViewControllerFactoryCollection", "STUser", "STConstants", "STLoginViewController_iPhone"]},
+				{"parents": ["STDisplayManager_iPhone", "STViewController"], "name": "STViewControllerFactoryCollection", "children": ["STGroupViewControllerFactory", "STMessageViewControllerFactory", "STInitializationViewControllerFactory"]},
+				{"parents": ["STDisplayManager_iPhone", "STSaveProfileOperation", "STRemoveGroupMembersOperation", "STChangeColleagueBlockStatusOperation"], "name": "STUser", "children": []},
+				{"parents": ["STDisplayManager_iPhone"], "name": "STConstants", "children": []},
+				{"parents": ["STDisplayManager_iPhone"], "name": "STLoginViewController_iPhone", "children": []},
+				{"parents": ["STViewControllerFactoryCollection"], "name": "STGroupViewControllerFactory", "children": []},
+				{"parents": ["STViewControllerFactoryCollection"], "name": "STMessageViewControllerFactory", "children": []},
+				{"parents": ["STViewControllerFactoryCollection"], "name": "STInitializationViewControllerFactory", "children": []
+				},
+				{"parents": [], "name": "STViewController", "children": ["STDisplayManager_iPhone", "STViewControllerFactoryCollection"]},
+				{"parents": [], "name": "STSaveProfileOperation", "children": ["STUser"]},
+				{"parents": [], "name": "STRemoveGroupMembersOperation", "children": ["STUser"]},
+				{"parents": [], "name": "STChangeColleagueBlockStatusOperation", "children": ["STUser"]}],
+				"links": [
+				{"source": 0, "target": 1},
+				{"source": 0, "target": 2},
+				{"source": 0, "target": 3},
+				{"source": 0, "target": 4},
+				{"source": 1, "target": 5},
+				{"source": 1, "target": 6},
 				{"source": 1, "target": 7},
-				{"source": 2, "target": 8},
-				{"source": 2, "target": 9},
-				{"source": 2, "target": 10},
-				{"source": 2, "target": 11},
-				{"source": 4, "target": 12},
-				{"source": 4, "target": 13},
-				{"source": 4, "target": 14}]}
+				{"source": 8, "target": 0},
+				{"source": 8, "target": 1},
+				{"source": 9, "target": 2},
+				{"source": 10, "target": 2},
+				{"source": 11, "target": 2}]};
 
 	/* Asynchronous loading of json data, causing some errors, 
 	   unless entire force layout is initialized within here. */
@@ -238,7 +292,7 @@ path.link {
 	/** Define functions for use in the script. **/
 
 	/* Returns an array of the objects corresponding 
-	   to a particular node's children, accepting a s
+	   to a particular node's children, accepting a 
 	   list of their names. */
 	var arrayOfChildren = function arrayOfChildren(children) {
 		var array = [];
@@ -276,9 +330,13 @@ path.link {
 	   dataset corresponding to a particular name. */
 	var childWithName = function childWithName(name) { 
 		for (var i = 0; i < nodes2.length; i++) { 
-			if (nodes2[i].name == name) 
+			if (nodes2[i].name == name) { 
+				// console.log("Found: ");
+				// console.log(dataset2.nodes[i]);
 				return dataset2.nodes[i];
+			}
 		}
+		// console.log("childWithName returning false!");
 		return false;
 	}
 
@@ -286,9 +344,12 @@ path.link {
 	   corresponding to a particular name. */
 	var forcedChildWithName = function forcedChildWithName(name) { 
 		for (var i = 0; i < dataset.nodes.length; i++) { 
-			if (dataset.nodes[i].name == name) 
+			if (dataset.nodes[i].name == name) {
+				// console.log("Found " + dataset.nodes[i].name + "!")
 				return dataset.nodes[i];
+			}
 		} 
+		// console.log("returning false!");
 		return false;
 	}
 
@@ -369,6 +430,7 @@ path.link {
 
 		text.attr("transform", transform);
 	}
+
 	/* */
 	var transform = function (d) {
 		return "translate(" + d.x + "," + d.y +")";
@@ -378,6 +440,26 @@ path.link {
 	var collapseChildren = function collapseChildren(source_master, source, duration, depth) { 
 		/* Base case */
 		if (!source.children || depth >= 8) return;
+		console.log("Hi! I'm collapsing my children! " + source.name);
+
+		/* Recursively call collapseChildren on all the expanded children of a node.*/
+		for (var i = 0; i < source.children.length; i++) { 
+			// console.log("About to call recursively.");
+			// console.log("These are my children here: ");
+			// console.log(source.children);
+			// console.log("Here is my forced child");
+			// console.log(childWithName(source.children[i]));
+			console.log("Here is the child I would like to collapse");
+			var child = forcedChildWithName(source.children[i]);
+			console.log(child);
+			console.log("Here are its children: ");
+			console.log(child.children);
+			if (child.children) {//children not already collapsed
+				console.log("Here is the child I'm about to collapse");
+				console.log(child);
+				collapseChildren(source_master, child, duration, depth + 1);
+			}
+		}
 
 		/* Calculate the new number of links that will be on the screen */
 		var newL = l - source.children.length;
@@ -417,8 +499,17 @@ path.link {
 				      	}
 				   });
 
+				/* Collapse the text label */
+				svg.select("#" + source.children[i] + "t")
+				   //.transition()
+				   //.duration(duration)
+				   //.attr("fill-opacity", 0)
+				   .remove();
+
 				/* Remove the child node from the set of nodes 
 				   tracked by the force layout. */
+				// console.log("Removing: ");
+				// console.log(source.children[i]);
 				force.nodes().splice(indexOfNode(source.children[i]), 1);
 			}
 
@@ -449,32 +540,15 @@ path.link {
 			      	 }
 			   	   });
 
-			/* Collapse the text label */
-			svg.select("#" + source.children[i] + "t")
-			   //.transition()
-			   //.duration(duration)
-			   //.attr("fill-opacity", 0)
-			   .remove();
-
 			/* Remove the link from the set of links 
 			   tracked by the force layout. */
 			force.links().splice(indexOfLink(source.name, source.children[i]), 1);
 
 		}
 
-		/* Recursively call collapseChildren on all the expanded children of a node.*/
-		for (var i = 0; i < source.children.length; i++) { 
-			// console.log("About to call recursively.");
-			// console.log("These are my children here: ");
-			// console.log(source.children);
-			// console.log("Here is my forced child");
-			// console.log(childWithName(source.children[i]));
-			collapseChildren(source_master, childWithName(source.children[i]), duration, depth + 1);
-		}
-
 		/* Set the children field to null, to indicated non-expanded children.*/
 		source._children = source.children;
-		source.children = null;
+		source.children = false;
 
 		/* Recolor source node.ss*/
 		if (depth == 0) 
@@ -494,8 +568,6 @@ path.link {
 		var childNodes = [];
 		var childLinks = [];
 
-		// console.log("mychildren have collapsed!");
-		// console.log(source);
 		/* Calculate positioning information for expanding nodes */
 		var r = 90;
 		var theta = 2 * Math.PI / source._children.length;
@@ -542,106 +614,149 @@ path.link {
 
 		/* Expand nodes & links one by one */
 		for (var i = 0; i < source._children.length; i++) {
-			// console.log("children here");
-			// console.log(source._children); 
+			/* Check if  child exists on screen */
+		    var child = forcedChildWithName(source._children[i]);
 
-			/* Child to be added */
-		    var child = childWithName(source._children[i]);
+		    if (child) { //If it does, expand the appropriate link to it
+				/* Expand link */
+				svg.select("#" + source.name + source._children[i])
+				   .transition()
+				   .duration(duration)
+				   .style("opacity", 0.6)
+				   .attr("x2", function () { return child.x; })
+				   .attr("y2", function () {
+				   		childLinks.push({source: source, target: child});
+					   	return child.y;
+				   })
+				   .each("end", function () { 
+				   	 /* Remove this from the screen. Adding to the force layout (etc) 
+				   	    has already been done above, in animating the nodes. */
+				   	 this.remove();
 
-		    /* Expand child node */
-			svg.select("#" + source._children[i])
-			    .transition()
-				.duration(duration)
-				.attr("r", node_radius)
-				.attr("cx", function () {
-					child.x = source.x + r * Math.sin(theta * i);
-					return child.px = source.x + r * Math.sin(theta * i);
-				})
-				.attr("cy", function () { 
-					child.y = source.y + r * Math.cos(theta * i);
-					child.py = child.y;
-					/* Add the child node and link to the child nodes and links. */
-		  				childNodes.push(child);
-					childLinks.push({source: source, target: child});
+			   	 	 /* Calculate the new number of nodes and links 
+					    on the screen */
+					 l = svg.selectAll("line")[0].length;
+			      	 n = svg.selectAll("circle")[0].length;
 
-				 	return source.y + r * Math.cos(theta * i);
-				})	
-				.style("opacity", 1)
-				.each("end", function () { 
-					/* Remove it from the screen */
-					this.remove();
+				   	 if (newL == l && newN == n && !restarted) {
+				   	 	restarted = true;
+				      		/* Add all data for added child nodes to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childNodes.length; i++) 
+								force.nodes().push(childNodes[i]);
 
-					/* Calculate the new number of nodes and links 
-					   on the screen */
-					l = svg.selectAll("line")[0].length;
-			      	n = svg.selectAll("circle")[0].length;
+				      		/* Add all data for add child links to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childLinks.length; i++)
+				      			force.links().push(childLinks[i])
 
-			      	/* If all of the child links and nodes have been removed
-			          restart the layout */
-			      	if (newL == l && newN == n && !restarted) {
-			      		// console.log("here!");
-			      		restarted = true;
-			      		/* Add all data for added child nodes to set 
-			      		   tracked by the force layout */
-			      		for (var i = 0; i < childNodes.length; i++) 
-							force.nodes().push(childNodes[i]);
+				      		/* Restart the force layout */
+				      		restart();
+				   	 }
+				   });
+		    } else { //If it doesn't, expand the node corresponding to it, along with the corresponding link
+		    	child = childWithName(source._children[i]);
 
-			      		/* Add all data for add child links to set 
-			      		   tracked by the force layout */
-			      		for (var i = 0; i < childLinks.length; i++)
-			      			force.links().push(childLinks[i])
+		    	toggleChildren(child);
 
-			      		/* Restart the force layout */
-			      		restart();
-			      	}
-				});
+		    	/* Expand child node */
+				svg.select("#" + source._children[i])
+				    .transition()
+					.duration(duration)
+					.attr("r", node_radius)
+					.attr("cx", function () {
+						child.x = source.x + r * Math.sin(theta * i);
+						return child.px = source.x + r * Math.sin(theta * i);
+					})
+					.attr("cy", function () { 
+						child.y = source.y + r * Math.cos(theta * i);
+						child.py = child.y;
+						/* Add the child node and link to the child nodes and links. */
+			  			childNodes.push(child);
+						childLinks.push({source: source, target: child});
 
-			/* Expand link */
-			svg.select("#" + source.name + source._children[i])
-			   .transition()
-			   .duration(duration)
-			   .style("opacity", 0.6)
-			   .attr("x2", function () { return source.x + r * Math.sin(theta * i) })
-			   .attr("y2", function () { 
-			   	/* Link has already been added (to the set tracked by the force 
-			   	   layout when adding nodes above) */
-			   	return source.y + r * Math.cos(theta * i);
-			   })
-			   .each("end", function () { 
-			   	 /* Remove this from the screen. Adding to the force layout (etc) 
-			   	    has already been done above, in animating the nodes. */
-			   	 this.remove();
+					 	return source.y + r * Math.cos(theta * i);
+					})	
+					.style("opacity", 1)
+					.each("end", function () { 
+						/* Remove it from the screen */
+						this.remove();
 
-		   	 	 /* Calculate the new number of nodes and links 
-				    on the screen */
-				 l = svg.selectAll("line")[0].length;
-		      	 n = svg.selectAll("circle")[0].length;
+						/* Calculate the new number of nodes and links 
+						   on the screen */
+						l = svg.selectAll("line")[0].length;
+				      	n = svg.selectAll("circle")[0].length;
 
-			   	 if (newL == l && newN == n && !restarted) {
-			   	 	restarted = true;
-			      		/* Add all data for added child nodes to set 
-			      		   tracked by the force layout */
-			      		for (var i = 0; i < childNodes.length; i++) 
-							force.nodes().push(childNodes[i]);
+				      	/* If all of the child links and nodes have been removed
+				          restart the layout */
+				      	if (newL == l && newN == n && !restarted) {
+				      		// console.log("here!");
+				      		restarted = true;
+				      		/* Add all data for added child nodes to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childNodes.length; i++) 
+								force.nodes().push(childNodes[i]);
 
-			      		/* Add all data for add child links to set 
-			      		   tracked by the force layout */
-			      		for (var i = 0; i < childLinks.length; i++)
-			      			force.links().push(childLinks[i])
+				      		/* Add all data for add child links to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childLinks.length; i++)
+				      			force.links().push(childLinks[i])
 
-			      		/* Restart the force layout */
-			      		restart();
-			   	 }
-			   });
+				      		/* Restart the force layout */
+				      		restart();
+				      	}
+					});
+
+				/* Expand link */
+				svg.select("#" + source.name + source._children[i])
+				   .transition()
+				   .duration(duration)
+				   .style("opacity", 0.6)
+				   .attr("x2", function () { return source.x + r * Math.sin(theta * i) })
+				   .attr("y2", function () { 
+				   	/* Link has already been added (to the set tracked by the force 
+				   	   layout when adding nodes above) */
+				   	return source.y + r * Math.cos(theta * i);
+				   })
+				   .each("end", function () { 
+				   	 /* Remove this from the screen. Adding to the force layout (etc) 
+				   	    has already been done above, in animating the nodes. */
+				   	 this.remove();
+
+			   	 	 /* Calculate the new number of nodes and links 
+					    on the screen */
+					 l = svg.selectAll("line")[0].length;
+			      	 n = svg.selectAll("circle")[0].length;
+
+				   	 if (newL == l && newN == n && !restarted) {
+				   	 	restarted = true;
+				      		/* Add all data for added child nodes to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childNodes.length; i++) 
+								force.nodes().push(childNodes[i]);
+
+				      		/* Add all data for add child links to set 
+				      		   tracked by the force layout */
+				      		for (var i = 0; i < childLinks.length; i++)
+				      			force.links().push(childLinks[i])
+
+				      		/* Restart the force layout */
+				      		restart();
+				   	 }
+				   });
+		    }
 		}
-			/* Add the node and link to the arrays used to join this data 
-			   to the set of nodes and links tracked by the force layout */
-				// childNodes.push(childWithName(source._children[i]));
-			// childLinks.push({source: source, target: childWithName(source._children[i])});
 
-		source.children = source._children; 
+		source.children = source._children;
+
+		source._children = false;
 
 		svg.select("#" + source.name).style("fill", color);
+
+		/* Add the node and link to the arrays used to join this data 
+		   to the set of nodes and links tracked by the force layout */
+		// childNodes.push(childWithName(source._children[i]));
+		// childLinks.push({source: source, target: childWithName(source._children[i])});
 	}
 
 	/* Define what happens to a node on a click event */
@@ -652,9 +767,6 @@ path.link {
 			console.log("click prevented!");
 			return;
 		}
-		console.log("**********************************************");
-		console.log("Hi, my name is " + source.name + "!");
-		/* Ignore drag */
 		if (d3.event.defaultPrevented) return; 
 
 		/* Select a duration. */
@@ -673,19 +785,23 @@ path.link {
 
 		/* Collapse children. */
 		if (source.children && source.children.length > 0) { 
-			console.log("I have these children");
+			// console.log("I have these children");
 			// console.log(source.children);
+			// console.log("And these parents!");
+			// console.log(source.parents);
 			collapseChildren(source, source, duration, 0);
 		/* Expand children */
-		} else if (source._children.length > 0) { //If children collapsed
-			console.log("My children are collapsed, but here they are!");
+		} else if (source._children && source._children.length > 0) { //If children collapsed
+			// console.log("My children are collapsed, but here they are!");
 			expandChildren(source, duration);
 		} else { 
 			restart();
-			console.log("no children!");
+			// console.log("no children!");
 		}
-		console.log("*********************************************");
+		// console.log("*********************************************");
 		last_click = current_time;
+		// console.log("Here is the current dataset: ");
+		// console.log(dataset);
 	};
 
 	function main() { 
@@ -757,30 +873,42 @@ path.link {
 	/* Return the coloring for a node. */
 	var color = function color(d) { 
 		if (d.children && d.children.length > 0) 
-			return colorscheme1 ? "#c6dbef" : colorscheme2 ? "#fff" : "#000" 
+			return colorscheme1 ? "#c6dbef" : colorscheme2 ? "#fff" : "#000"; //children_expanded_color();
 		else if (d._children && d._children.length > 0)
-			return colorscheme1 ? "#3182bd" : colorscheme2 ? "lightsteelblue" : "#000" 
+			return colorscheme1 ? "#3182bd" : colorscheme2 ? "lightsteelblue" : "#000"; //children_collapsed_color(); 
 		else 
-			return colorscheme1 ? "#fd8d3c" : colorscheme2 ? "#fff" : "#000" 
-	} 
-
-	// var double_click = function (source) { 
-	// 	console.log("hey!");
-	// 	console.log("you clicked me!");
-	// }
+			return colorscheme1 ? "#fd8d3c" : colorscheme2 ? "#fff" : "#000"  //no_children_color();
+	}
 
 	/* Checks whether the node nominated for collapse has more parents on screen than the 
 	   parent which is requesting its collapse. Takes the names of the parent and the child 
-	   it is nominating for collapse.
+	   it is nominating for collapse. Note that a node is only considered a parent if it is 
+	   taking ownership (pointing) to its child on the screen. 
 	 */
 	var moreParentsOnScreen = function moreParentsOnScreen (childName, parentName) { 
-		var child = forcedChildWithName(childName);
-		for (var i = 0; i < child.parents.length; i++) { 
+		var child = childWithName(childName);
+
+		if (!child) { 
+			return false;
+		}
+		for (var i = 0; i < child.parents.length; i++) {
 			var parent = forcedChildWithName(child.parents[i]);
-			if (parent && parent.name != parentName)
+			if (parent && parent.name != parentName && parent.children) { 
 				return true;
+			}
 		}
 		return false;
+	}
+
+	/* Toggles the children of a given node. */
+	function toggleChildren (source) { 
+		if (source.children) { 
+			source._children = source.children;
+			source.children = false;
+		} else { 
+			source.children = source._children; 
+			source._children = false;
+		}
 	}
 
 	/* Sleep function */
