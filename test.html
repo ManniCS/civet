@@ -459,7 +459,10 @@ path.link {
 		/* Select the appropriate DOM elements one by 
 		   one and collapse them */
 		for (var i = 0; i < source.children.length; i++) { 
-			if (!moreParentsOnScreen(source.children[i], source.name)) {//Consider replacing with a more efficient implementation of array.contains(?) (also keep an array of names of displayed/visible nodes) 
+			if (moreParentsOnScreen(source.children[i], source.name)) { 
+				newN++; //increase the new number of nodes the framework is expecting to appear
+						//on the screen to adjust for nodes that won't actually be contracted
+			} else {//Consider replacing with a more efficient implementation of array.contains(?) (also keep an array of names of displayed/visible nodes) 
 				/* Collapse the child nodes */
 				svg.select("#" + source.children[i])
 				   .transition()
