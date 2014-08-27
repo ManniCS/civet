@@ -19,9 +19,7 @@ found_input_file = False
 found_output_file = False
 
 for i in xrange(1, len(sys.argv)):
-	# print i
 	f = sys.argv[i]
-	# print f
 	if '.dot' in f: 
 		found_input_file = True
 		input_file = f
@@ -49,15 +47,15 @@ Recursive method that allows for parsing of lines in the dot
 file that specify relationships between multiple nodes. 
 """
 def addNodesAndLinks(tokens):
-	if len(tokens) == 1: #if there is only one token left on the line
+	if len(tokens) <= 1: #if there is only one token left on the line
 		return     		 #return
 
 	"""Bind the appropriate variables to their global equivalents"""
 	global index
 
 	"""Add nodes to collection as child and parent"""
-	parent = tokens[0]
-	child = tokens[1]
+	parent = tokens[len(tokens) - 1]
+	child = tokens[len(tokens) - 2]
 
 	if (child == "{}"): return #a possible way of encoding no children (obviously, 
 							   #we don't want this to be included as a child node)
@@ -76,7 +74,7 @@ def addNodesAndLinks(tokens):
 	for i, elem in enumerate(nodes):
 		if elem["name"] == parent:
 			parent_exists = True
-			nodes[i]["children"].append(child)
+			nodes[i]["_children"].append(child) #toggle all children as collapsed (in background dataset)
 		elif elem["name"] == child:
 			child_exists = True
 			nodes[i]["parents"].append(parent)
@@ -90,17 +88,17 @@ def addNodesAndLinks(tokens):
 	   the ids of the nodes correspond to their index in the final dataset.)"""
 	if not parent_exists:
 		#print "Adding parent + child!"
-		nodes.append({"name": parent, "children": [child], "parents": []}) 
+		nodes.append({"name": parent, "_children": [child], "parents": []}) 
 	if not child_exists:
 		#print "Adding child!"
-		nodes.append({"name": child, "children": [], "parents": [parent]})
+		nodes.append({"name": child, "_children": [], "parents": [parent]})
 
 	"""Add the parent-child relationship to the links list. The discovered nodes 
        dictionary stores information about the ids of the nodes."""
 	links.append({"source": discovered_nodes[parent], "target": discovered_nodes[child]})
 
 	"""Recursively call the method on the rest of the tokens"""
-	addNodesAndLinks(tokens[1:len(tokens)])
+	addNodesAndLinks(tokens[0:-1])
 
 """Parse file"""                                                  
 next_line = "!"

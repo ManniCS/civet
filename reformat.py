@@ -6,15 +6,20 @@ if len(sys.argv) < 1:
     sys.exit()
 
 found_input_file = False
+input_file = ""
 
 for i in xrange(1, len(sys.argv)):
     f = sys.argv[i]
     if '.json' in f: 
         found_input_file = True
-	input_file = f
+        input_file = f
+    elif '._json' in f:
+        found_input_file = True
+        input_file = f
 
 if not found_input_file: 
-    print "Please enter an input file with a .json extension"
+    print "Please enter an input file with a .json or ._json extension"
+    sys.exit()
 
 f = open(input_file, "r")
 
