@@ -1,0 +1,13 @@
+# # # # # # # # # # # # 
+#       README        # 
+# # # # # # # # # # # # 
+
+Thanks for taking a look at epocCivet! If you would like to see an example of the tool running, feel free to open canvas.html in any browser. epocCivet is especially tested in Chrome. If you get any errors to the effect of:
+
+	XMLHttpRequest cannot load file:///some_file_name.extension. Cross origin requests are only supported for HTTP.
+
+Please close your browser and attempt to open it from the console with the following command: 
+
+	open -a 'Google Chrome' --args -allow-file-access-from-files
+
+For more information and latest sources please refer to http://github.com/ManniCS/civet

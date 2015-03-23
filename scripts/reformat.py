@@ -1,3 +1,7 @@
+# Manuele Cavalli-Sforza
+# 2014-09-12
+# https://github.com/ManniCS/civet
+
 import sys
 
 # """Grab input and ouput files from the command line"""

@@ -1,3 +1,7 @@
+# Manuele Cavalli-Sforza
+# 2014-09-12
+# https://github.com/ManniCS/civet
+
 """ This file parses a dot file and writes the parsed content in 
 	json format for graphs, accepted by the d3 force-directed 
 	layout. This file assumes that the nodes related by the dot 

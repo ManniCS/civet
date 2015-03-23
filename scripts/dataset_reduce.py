@@ -1,8 +1,13 @@
-"""Understanding this file will be aided by understanding the dot_to_json.py 
-   file, the output of which this file operates on. Takes a list of diffed files
-   and a json file describing dependency relationships in the corresponding code 
-   base and spits out a reduced json file containing node and link information for
-   the nodes representing the diffed files, their immediate children.""" 
+# Manuele Cavalli-Sforza
+# 2014-09-12
+# https://github.com/ManniCS/civet
+
+"""Takes a list of diffed files and a JSON file describing dependency relationships 
+   in the code base, and produces a reduced JSON file to initialize the graph with. 
+   (The latter contains information about the diffed files and their immediate children.)
+   
+   Understanding the implementation of this file will be aided by understanding the 
+   dot_to_json.py file, the output of which this file operates on. """ 
 
 import json
 import sys

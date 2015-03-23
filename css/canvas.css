@@ -1,0 +1,94 @@
+/* Manuele Cavalli-Sforza
+   2014-09-12
+   https://github.com/ManniCS/civet */
+   
+@font-face { 
+	font-family: Collator;
+	src: url("../resources/Collator/Collator.otf") format("opentype");
+}
+
+body { 
+	  background: url(../resources/texture-noise.png);
+	  overflow: hidden;
+	  margin: 0;
+	  font-size: 14px;
+	  font-family: "Helvetica Neue", Helvetica;
+}
+
+node:hover {
+  color: #666;
+}
+
+.node {
+  cursor: pointer;
+  stroke-width: 3px;
+}
+
+.node text {
+  font-size: 11px;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.key { 
+	background-color: #f3f3f3;
+	border: 3px solid #bdbdbd;
+}
+
+p { 
+	font-family: 'Open Sans', sans-serif;
+}
+
+.key_title { 
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+}
+
+div.title { 
+	position:fixed;
+	top: 50px;
+	width: 50%;
+}
+
+.icon { 
+	height: 65px;
+	width: 65px;
+	position: relative;
+}
+
+.text_span { 
+	border: 2px solid #bdbdbd;
+	background-color:rgba(256, 256, 256, 0.8);
+	border-radius: 8px;
+	padding: 5px;
+	position: absolute;
+	margin-left: 15px;
+}
+
+.fileViewer { 
+	border-radius: 20px;
+	border: 2px solid #bdbdbd;
+	padding: 30px 0;
+}
+
+.fileContainer { 
+	padding: 0 30px;
+	overflow: scroll;
+}
+
+.fileContent { 
+	margin: 0;
+	margin-bottom: 12px;
+}
+
+span.title { 
+	font-family: 'Open Sans', sans-serif;
+}
+
+span.emphasis { 
+	font-family: 'Collator';
+}
